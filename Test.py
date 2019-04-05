@@ -48,6 +48,7 @@ while True:
 
     action = arrow_keys[key]
     state, reward, done, info = env.step(action)
+    #state, reward, done, info = env.action_space.sample()
     env.render()
     print("state:", state, "action:", action, "reward:", reward, "info:", info)
 
