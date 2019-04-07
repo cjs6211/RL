@@ -5,12 +5,6 @@ from gym.envs.registration import register
 import matplotlib.pyplot as plt
 import random as pr
 
-def rargmax(vector):
-    """Argmax that choose randomly among eligible maximum indices"""
-    m = np.max(vector)
-    indices = np.nonzero(vector==m)[0]
-    return pr.choice(indices)
-
 register(
     id='FrozenLake-v3',
     entry_point='gym.envs.toy_text:FrozenLakeEnv',
@@ -22,6 +16,8 @@ env = gym.make("FrozenLake-v3")
 #init Q-table
 Q = np.zeros([env.observation_space.n, env.action_space.n])
 num_episodes = 2000
+#discount factor
+dis = 0.99
 rList = []
 
 for i in range(num_episodes):
@@ -29,11 +25,17 @@ for i in range(num_episodes):
     rAll = 0
     done = False
 
+    e = 1./((i//100)+1)
+
     while not done:
-        action = rargmax(Q[state, :])
+        if np.random.rand(1) < e :
+            action = env.action_space.sample()
+        else:
+            action = np.argmax(Q[state, :])
+
         new_state, reward, done, info = env.step(action)
         #update Q-Table
-        Q[state, action] = reward + np.max(Q[new_state, :])
+        Q[state, action] = reward + dis*np.max(Q[new_state, :])
 
         rAll += reward
         state = new_state

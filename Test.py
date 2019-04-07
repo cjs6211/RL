@@ -41,7 +41,7 @@ env.render()
 
 while True:
     key = inkey()
-    if key not in arrow_keys.keys():g
+    if key not in arrow_keys.keys():
         print(key)
         print("game aborted")
         break
