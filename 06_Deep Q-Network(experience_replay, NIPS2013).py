@@ -59,7 +59,6 @@ def simple_replay_train(DQN, train_batch):
             Q[0, action] = reward
         else:
             Q[0, action] = reward + dis*np.max(DQN.predict(next_state))
-            k=5
 
         y_stack = np.vstack([y_stack, Q])
         x_stack = np.vstack([x_stack, state])
