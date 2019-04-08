@@ -25,7 +25,7 @@ for i in range(num_episodes):
     rAll = 0
     done = False
 
-    e = 1./((i//100)+1)
+    e = 1./((i//50)+1)
 
     while not done:
         if np.random.rand(1) < e :
