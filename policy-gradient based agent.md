@@ -8,4 +8,6 @@
 
 ###### 일견 간단해보이지만, 거의 대부분의 task들이 MDP로 설명될 수 있다. 예를 들어, 문을 여는 task를 생각해보자. state는 문의 방향, 우리 몸과 문의 위치일 것이다. 액션은 우리가 할 수 있는 모든 움직임이 될 것이고, reward는 문이 제대로 열렸는지의 여부일 것이다. 문쪽으로 걸어가는 것은 이 문제를 풀 때 필수적인 액션이라 할 수 있다. 그러나 실제적으로 문을 열기위한 액션은 아니므로 reward는 받을 수 없다. 따라서 agent는 궁극적으로 reward를 받도록 이끄는 액션을 하도록 학습될 필요가 있으므로 temporal dynaimics를 도입해야한다.
 
-###### reward over time을 고려하기 위해, agent는 한번에 하나이상의 experience를 가지고 업데이트되어야한다.
+###### reward over time을 고려하기 위해, agent는 한번에 하나이상의 experience를 가지고 업데이트되어야한다. 이를 구현하기 위해서는 experiece들을 버퍼에 모아 때때로 한번에 업데이트할 것이다. 이러한 sequences of experience는 'rollout' 또는 'experience trace'라고 한다. 하지만 이러한 rollout들을 그냥쓰는게 아니라 discount factor로 적절하게 조정하고 사용한다.
+
+###### 직관적으로 이는 각 액션이 즉각적으로 들어오는 reward만이 아니라 후에 들어오는 reward에도 어느정도 영향을 미치게끔한다. 우리는 loss function에 이 수정된 reward를 advantage의 추정치로 쓸 것이다.
